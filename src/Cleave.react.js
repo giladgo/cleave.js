@@ -24,6 +24,7 @@ var Cleave = React.createClass({
 
             if (newValue !== owner.properties.initValue) {
                 owner.properties.initValue = newValue;
+								owner.properties.backspace = false;
                 owner.onInput(newValue);
             }
         }

@@ -58,8 +58,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
 	var React = __webpack_require__(1);
 
 	var NumeralFormatter = __webpack_require__(2);
@@ -86,6 +84,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (newValue !== owner.properties.initValue) {
 	                owner.properties.initValue = newValue;
+	                owner.properties.backspace = false;
 	                owner.onInput(newValue);
 	            }
 	        }
@@ -107,7 +106,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var onChange = _owner$props.onChange;
 	        var onInit = _owner$props.onInit;
 
-	        var other = _objectWithoutProperties(_owner$props, ['value', 'options', 'onKeyDown', 'onChange', 'onInit']);
 
 	        owner.registeredEvents = {
 	            onInit: onInit || Util.noop,
@@ -354,16 +352,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    render: function render() {
 	        var owner = this;
-	        var _owner$props2 = owner.props;
-	        var value = _owner$props2.value;
-	        var options = _owner$props2.options;
-	        var onKeyDown = _owner$props2.onKeyDown;
-	        var onChange = _owner$props2.onChange;
-	        var onInit = _owner$props2.onInit;
 
-	        var other = _objectWithoutProperties(_owner$props2, ['value', 'options', 'onKeyDown', 'onChange', 'onInit']);
+	        var propsToTransfer = Object.assign({}, owner.props);
+	        delete propsToTransfer.value;
+	        delete propsToTransfer.options;
+	        delete propsToTransfer.onKeyDown;
+	        delete propsToTransfer.onChange;
+	        delete propsToTransfer.onInit;
 
-	        return React.createElement('input', _extends({ type: 'text' }, other, {
+	        return React.createElement('input', _extends({ type: 'text' }, propsToTransfer, {
 	            value: owner.state.value,
 	            onKeyDown: owner.onKeyDown,
 	            onChange: owner.onChange }));
